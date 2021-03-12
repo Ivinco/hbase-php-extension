@@ -6,11 +6,7 @@
 
 namespace HbaseExtension {
 
-    void Client::__construct(const Config& configuration) {
-        client_ = std::make_unique<hbase::Client>(*configuration.getConf());
-    }
-
-    void Client::__construct1(Php::Parameters &params) {
+    void Client::__construct(Php::Parameters &params) {
 
         auto* configuration = dynamic_cast<Config*> (params[0].implementation());
 

@@ -30,7 +30,7 @@ PHPCPP_EXPORT void *get_module()
     });
 
     Php::Class<HbaseExtension::Client> hbaseExtensionClient("Client");
-    hbaseExtensionClient.method<&HbaseExtension::Client::__construct1> ("__construct", {
+    hbaseExtensionClient.method<&HbaseExtension::Client::__construct> ("__construct", {
             Php::ByVal("config", "HBaseNativeClient\\Config")
     });
     hbaseExtensionClient.method<&HbaseExtension::Client::table> ("table", {

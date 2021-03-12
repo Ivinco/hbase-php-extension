@@ -6,9 +6,8 @@
 namespace HbaseExtension {
     class Client : public Php::Base {
     public:
-        void __construct(const Config& configuration);
         void table(Php::Parameters &params);
-        void __construct1(Php::Parameters &params);
+        void __construct(Php::Parameters &params);
         Php::Value get(Php::Parameters &params);
 
     private:
