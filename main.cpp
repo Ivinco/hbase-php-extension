@@ -24,10 +24,16 @@ PHPCPP_EXPORT void *get_module()
     Php::Namespace hbaseNativeClient("HBaseNativeClient");
 
     Php::Class<HbaseExtension::Config> hbaseExtensionConfiguration("Config");
-    hbaseExtensionConfiguration.method<&HbaseExtension::Config::setConf> ("setConf", {
+    hbaseExtensionConfiguration.method<&HbaseExtension::Config::set> ("set", {
             Php::ByVal("name", Php::Type::String),
             Php::ByVal("value", Php::Type::String)
     });
+
+    hbaseExtensionConfiguration.add(Php::Constant(HbaseExtension::Config::HBASE_ZOOKEEPER_QUORUM, hbase::ZKUtil::kHBaseZookeeperQuorum_));
+    hbaseExtensionConfiguration.add(Php::Constant(HbaseExtension::Config::HBASE_ZOOKEEPER_CLIENT_PORT, hbase::ZKUtil::kHBaseZookeeperClientPort_));
+    hbaseExtensionConfiguration.add(Php::Constant(HbaseExtension::Config::HBASE_ZOOKEEPER_ZNODE_PARENT, hbase::ZKUtil::kHBaseZnodeParent_));
+    hbaseExtensionConfiguration.add(Php::Constant(HbaseExtension::Config::HBASE_ZOOKEEPER_META_REGION_SERVER, hbase::ZKUtil::kHBaseMetaRegionServer_));
+    hbaseExtensionConfiguration.add(Php::Constant(HbaseExtension::Config::HBASE_ZOOKEEPER_SESSION_TIMEOUT, hbase::ZKUtil::kHBaseZookeeperSessionTimeout_));
 
     Php::Class<HbaseExtension::Client> hbaseExtensionClient("Client");
     hbaseExtensionClient.method<&HbaseExtension::Client::__construct> ("__construct", {
