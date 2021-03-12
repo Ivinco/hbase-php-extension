@@ -6,7 +6,12 @@
 
 namespace HbaseExtension {
 
-    void Client::__construct(Php::Parameters &params) {
+    void Client::__construct(Php::Parameters &params)
+    {
+        if (params.empty()) {
+            //it's not possible to create custom exceptions with PHP CPP
+            throw Php::Exception("Please provide config");
+        }
 
         auto* configuration = dynamic_cast<Config*> (params[0].implementation());
 
@@ -16,6 +21,7 @@ namespace HbaseExtension {
     void Client::table(Php::Parameters &params)
     {
         if (params.empty()) {
+            //it's not possible to create custom exceptions with PHP CPP
             throw Php::Exception("Please provide table name");
         }
 
@@ -32,6 +38,11 @@ namespace HbaseExtension {
         if (table_ == nullptr) {
             //it's not possible to create custom exceptions with PHP CPP
             throw Php::Exception("No table selected");
+        }
+
+        if (params.empty()) {
+            //it's not possible to create custom exceptions with PHP CPP
+            throw Php::Exception("Please provide row ids");
         }
 
         std::vector<std::string> rows = params[0];
