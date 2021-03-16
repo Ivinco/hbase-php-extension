@@ -1,4 +1,5 @@
 #include <phpcpp.h>
+#include "ParametersChecker.h"
 
 namespace HbaseExtension {
     class Scan : public Php::Base {
@@ -13,7 +14,6 @@ namespace HbaseExtension {
     private:
         hbase::Scan scan_{};
         int64_t caching;
-
-        void checkParams(Php::Parameters &params);
+        ParametersChecker parametersChecker{};
     };
 }

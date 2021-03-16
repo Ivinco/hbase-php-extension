@@ -16,7 +16,7 @@ set(SOURCE_FILES main.cpp)
 #add_executable(t ${SOURCE_FILES})
 
    #add_library(myext SHARED ${SOURCE_FILES})
-   add_library(myext SHARED main.cpp src/HbaseExtension/Config.cpp include/HbaseExtension/Config.h src/HbaseExtension/Client.cpp include/HbaseExtension/Client.h src/HbaseExtension/Scan.cpp include/HbaseExtension/Scan.h src/HbaseExtension/Scanner.cpp include/HbaseExtension/Scanner.h src/HbaseExtension/ResultConverter.cpp include/HbaseExtension/ResultConverter.h)
+   add_library(myext SHARED main.cpp src/HbaseExtension/Config.cpp include/HbaseExtension/Config.h src/HbaseExtension/Client.cpp include/HbaseExtension/Client.h src/HbaseExtension/Scan.cpp include/HbaseExtension/Scan.h src/HbaseExtension/Scanner.cpp include/HbaseExtension/Scanner.h src/HbaseExtension/ResultConverter.cpp include/HbaseExtension/ResultConverter.h src/HbaseExtension/ParametersChecker.cpp include/HbaseExtension/ParametersChecker.h)
 
     find_library(PHPCPP phpcpp HINTS /usr/lib/)
     message(STATUS "Found phpcpp in ${PHPCPP}")

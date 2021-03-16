@@ -1,5 +1,6 @@
 #pragma once
 #include "Config.h"
+#include "ParametersChecker.h"
 #include <hbase/client/client.h>
 #include <hbase/client/table.h>
 
@@ -15,10 +16,9 @@ namespace HbaseExtension {
     private:
         std::unique_ptr<hbase::Client> client_;
         std::shared_ptr<hbase::Table> table_;
+        ParametersChecker parametersChecker{};
 
     private:
-
-        void checkParams(Php::Parameters &params, const std::string &message);
         void checkTable();
     };
 

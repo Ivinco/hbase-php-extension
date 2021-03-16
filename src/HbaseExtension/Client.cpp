@@ -11,7 +11,7 @@ namespace HbaseExtension {
 
     void Client::__construct(Php::Parameters &params)
     {
-        checkParams(params, "Please provide config");
+        parametersChecker.check(params, "Please provide config");
 
         auto* configuration = dynamic_cast<Config*> (params[0].implementation());
 
@@ -20,7 +20,7 @@ namespace HbaseExtension {
 
     void Client::table(Php::Parameters &params)
     {
-        checkParams(params, "Please provide table name");
+        parametersChecker.check(params, "Please provide table name");
 
         std::string tableName = params[0];
         hbase::pb::TableName tn = folly::to<hbase::pb::TableName>(tableName);
@@ -33,7 +33,7 @@ namespace HbaseExtension {
     Php::Value Client::get(Php::Parameters &params)
     {
         checkTable();
-        checkParams(params, "Please provide row ids");
+        parametersChecker.check(params, "Please provide row ids");
 
         std::vector<std::string> rows = params[0];
         std::vector<hbase::Get> gets;
@@ -57,15 +57,6 @@ namespace HbaseExtension {
         return phpResult;
     }
 
-    //todo make static fpr namespace
-    void Client::checkParams(Php::Parameters &params, const std::string& message)
-    {
-        if (params.empty()) {
-            //it's not possible to create custom exceptions with PHP CPP
-            throw Php::Exception(message);
-        }
-    }
-
     void Client::checkTable()
     {
         if (table_ == nullptr) {
@@ -76,7 +67,7 @@ namespace HbaseExtension {
 
     Php::Value Client::openScanner(Php::Parameters &params)
     {
-        checkParams(params, "Please provide scan");
+        parametersChecker.check(params, "Please provide scan");
         checkTable();
 
         return Php::Object("HBaseNativeClient\\Scanner", new Scanner(params, table_));
