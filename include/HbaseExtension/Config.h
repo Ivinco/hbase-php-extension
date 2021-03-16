@@ -1,7 +1,6 @@
 #pragma once
 #include <phpcpp.h>
 #include <hbase/client/zk-util.h>
-#include <unordered_map>
 
 namespace HbaseExtension {
     class Config : public Php::Base {

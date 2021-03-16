@@ -1,3 +1,4 @@
+#pragma once
 #include <phpcpp.h>
 #include "ParametersChecker.h"
 
@@ -13,7 +14,6 @@ namespace HbaseExtension {
 
     private:
         hbase::Scan scan_{};
-        int64_t caching;
-        ParametersChecker parametersChecker{};
+        ParametersChecker parametersChecker_{};
     };
 }

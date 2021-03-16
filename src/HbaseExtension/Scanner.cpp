@@ -36,11 +36,11 @@ namespace HbaseExtension {
         }
 
         while (limit-- > 0) {
-            auto r = scanner_->Next();
-            if (r == nullptr) {
-                break;
+            auto result = scanner_->Next();
+            if (!resultConverter_.verify(result)) {
+                continue;
             }
-            phpResult[r->Row()] = ResultConverter::convertResultToPhpObject(r);
+            phpResult[result->Row()] = resultConverter_.convertResultToPhpObject(result);
         }
 
         return phpResult;

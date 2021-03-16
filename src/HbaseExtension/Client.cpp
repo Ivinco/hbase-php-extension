@@ -11,7 +11,7 @@ namespace HbaseExtension {
 
     void Client::__construct(Php::Parameters &params)
     {
-        parametersChecker.check(params, "Please provide config");
+        parametersChecker_.check(params, "Please provide config");
 
         auto* configuration = dynamic_cast<Config*> (params[0].implementation());
 
@@ -20,7 +20,7 @@ namespace HbaseExtension {
 
     void Client::table(Php::Parameters &params)
     {
-        parametersChecker.check(params, "Please provide table name");
+        parametersChecker_.check(params, "Please provide table name");
 
         std::string tableName = params[0];
         hbase::pb::TableName tn = folly::to<hbase::pb::TableName>(tableName);
@@ -33,7 +33,7 @@ namespace HbaseExtension {
     Php::Value Client::get(Php::Parameters &params)
     {
         checkTable();
-        parametersChecker.check(params, "Please provide row ids");
+        parametersChecker_.check(params, "Please provide row ids");
 
         std::vector<std::string> rows = params[0];
         std::vector<hbase::Get> gets;
@@ -47,10 +47,10 @@ namespace HbaseExtension {
         auto results = table_->Get(gets);
 
         for(const auto& result: results) {
-            if (!ResultConverter::Verify(result)) {
+            if (!resultConverter_.verify(result)) {
                 continue;
             }
-            phpResult[result->Row()] = ResultConverter::convertResultToPhpObject(result);
+            phpResult[result->Row()] = resultConverter_.convertResultToPhpObject(result);
 
         }
 
@@ -67,7 +67,7 @@ namespace HbaseExtension {
 
     Php::Value Client::openScanner(Php::Parameters &params)
     {
-        parametersChecker.check(params, "Please provide scan");
+        parametersChecker_.check(params, "Please provide scan");
         checkTable();
 
         return Php::Object("HBaseNativeClient\\Scanner", new Scanner(params, table_));

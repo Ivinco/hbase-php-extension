@@ -35,7 +35,7 @@ namespace HbaseExtension {
         return returnResult;
     }
 
-    bool ResultConverter::Verify(const std::shared_ptr<hbase::Result>& result) {
+    bool ResultConverter::verify(const std::shared_ptr<hbase::Result>& result) {
         return result != nullptr && !result->IsEmpty();
     }
 }

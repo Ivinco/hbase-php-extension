@@ -1,3 +1,4 @@
+#pragma once
 #include <phpcpp.h>
 
 namespace HbaseExtension {
