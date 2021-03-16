@@ -10,6 +10,7 @@ namespace HbaseExtension {
         void __construct(Php::Parameters &params);
         Php::Value get(Php::Parameters &params);
         Php::Value openScanner(Php::Parameters &params);
+        void close();
 
     private:
         std::unique_ptr<hbase::Client> client_;

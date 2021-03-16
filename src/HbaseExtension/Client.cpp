@@ -81,4 +81,14 @@ namespace HbaseExtension {
 
         return Php::Object("HBaseNativeClient\\Scanner", new Scanner(params, table_));
     }
+
+    void Client::close()
+    {
+        if (table_ != nullptr) {
+            table_->Close();
+        }
+        if (client_ != nullptr) {
+            client_->Close();
+        }
+    }
 }

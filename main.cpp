@@ -50,6 +50,7 @@ PHPCPP_EXPORT void *get_module()
     hbaseExtensionClient.method<&HbaseExtension::Client::openScanner>     ("openScanner", {
             Php::ByVal("scan", "HBaseNativeClient\\Scan")
     });
+    hbaseExtensionClient.method<&HbaseExtension::Client::close> ("close");
 
     Php::Class<HbaseExtension::Scan> hbaseExtensionScan("Scan");
     hbaseExtensionScan.method<&HbaseExtension::Scan::setStartRow> ("setStartRow", {
