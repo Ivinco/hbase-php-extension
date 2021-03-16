@@ -9,13 +9,16 @@ namespace HbaseExtension {
         void table(Php::Parameters &params);
         void __construct(Php::Parameters &params);
         Php::Value get(Php::Parameters &params);
+        Php::Value openScanner(Php::Parameters &params);
 
     private:
         std::unique_ptr<hbase::Client> client_;
-        std::unique_ptr<hbase::Table> table_;
+        std::shared_ptr<hbase::Table> table_;
 
-        Php::Object convertResultToPhpObject(const std::shared_ptr<hbase::Result> &result) const;
-        bool Verify(const std::shared_ptr<hbase::Result>& result);
+    private:
+
+        void checkParams(Php::Parameters &params, const std::string &message);
+        void checkTable();
     };
 
 }

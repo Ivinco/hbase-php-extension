@@ -2,6 +2,8 @@
 #include <iostream>
 #include "include/HbaseExtension/Config.h"
 #include "include/HbaseExtension/Client.h"
+#include "include/HbaseExtension/Scan.h"
+#include "include/HbaseExtension/Scanner.h"
 
 
 
@@ -45,9 +47,31 @@ PHPCPP_EXPORT void *get_module()
     hbaseExtensionClient.method<&HbaseExtension::Client::get>     ("get", {
             Php::ByVal("rowKeys", Php::Type::Array)
     });
+    hbaseExtensionClient.method<&HbaseExtension::Client::openScanner>     ("openScanner", {
+            Php::ByVal("scan", "HBaseNativeClient\\Scan")
+    });
+
+    Php::Class<HbaseExtension::Scan> hbaseExtensionScan("Scan");
+    hbaseExtensionScan.method<&HbaseExtension::Scan::setStartRow> ("setStartRow", {
+            Php::ByVal("startRow", Php::Type::String)
+    });
+    hbaseExtensionScan.method<&HbaseExtension::Scan::setStopRow> ("setStopRow", {
+            Php::ByVal("stopRow", Php::Type::String)
+    });
+    hbaseExtensionScan.method<&HbaseExtension::Scan::setCaching> ("setCaching", {
+            Php::ByVal("caching", Php::Type::Numeric)
+    });
+
+    Php::Class<HbaseExtension::Scanner> hbaseExtensionScanner("Scanner");
+    hbaseExtensionScanner.method<&HbaseExtension::Scanner::getList> ("getList");
+    hbaseExtensionScanner.method<&HbaseExtension::Scanner::close> ("close");
+    hbaseExtensionScanner.method("__construct", Php::Private);
+    hbaseExtensionScanner.method("__clone", Php::Private);
 
     hbaseNativeClient.add(std::move(hbaseExtensionConfiguration));
     hbaseNativeClient.add(std::move(hbaseExtensionClient));
+    hbaseNativeClient.add(std::move(hbaseExtensionScan));
+    hbaseNativeClient.add(std::move(hbaseExtensionScanner));
     extension.add(std::move(hbaseNativeClient));
 
     return extension;
