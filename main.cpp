@@ -21,10 +21,10 @@ extern "C" {
  */
 PHPCPP_EXPORT void *get_module()
 {
-    static Php::Extension extension("hello", "1.0");
+    static Php::Extension extension("phphbase", "1.0");
 
     zoo_set_debug_level( (ZooLogLevel)0);
-    google::InitGoogleLogging("hello");
+    google::InitGoogleLogging("phphbase");
     google::SetCommandLineOption("GLOG_minloglevel", "1");
 
     Php::Namespace hbaseNativeClient("HBaseNativeClient");
